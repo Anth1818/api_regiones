@@ -3,13 +3,19 @@ const fastify = require('fastify')(
 )
 require('dotenv').config()
 
+const cors = require('@fastify/cors')
+
+fastify.register(cors, {
+  // put your options here
+})
+
 
 fastify.get('/', async (request, reply) => {
     return { hello: 'world' }
 })
 
 // Nombre de las rutas
-const routeName = ['archievement', 'user', 'worker','location']
+const routeName = ['archievement', 'user', 'worker','auth','location']
 
 routeName.forEach((route) => {
     fastify.register(require(`./routes/route.${route}.js`), { prefix: `${route}` })
